@@ -440,10 +440,10 @@ class Dataset_DO_hour(Dataset):
 
         df_raw = normalize_water_quality_frame(df_raw, self.target)
  
-        # 按时间顺序切分：前 40% 训练，中间 20% 验证，后 40% 测试。
+        # 按时间顺序切分：前 60% 训练，中间 20% 验证，后 20% 测试。
         # 验证/测试起点向前回退 seq_len，保证第一个窗口有完整历史输入。
-        num_train = int(len(df_raw) * 0.4)
-        num_test = int(len(df_raw) * 0.4)
+        num_train = int(len(df_raw) * 0.6)
+        num_test = int(len(df_raw) * 0.2)
         num_vali = len(df_raw) - num_train - num_test
         
         border1s = [0, num_train - self.seq_len, len(df_raw) - num_test - self.seq_len]
